@@ -1,3 +1,16 @@
+" Name:       fortress.vim
+" Version:    0.1.0
+" Maintainer: github.com/javonharper
+" License:    The MIT License (MIT)
+"
+" A minimal colorscheme for Vim
+"
+" Based on the off, plain, and paramount colorschemes:
+"
+" https://github.com/reedes/vim-colors-off
+" https://github.com/andreypopp/vim-colors-plain
+" https://github.com/owickstrom/vim-colors-paramount
+
 highlight clear
 if exists("syntax_on")
   syntax reset
@@ -7,144 +20,154 @@ set background=dark
 
 let g:colors_name="fortress"
 
-"----------------------------------------------------------------
-" General settings                                              |
-"----------------------------------------------------------------
-"----------------------------------------------------------------
-" Syntax group   | Foreground    | Background    | Style        |
-"----------------------------------------------------------------
+let s:black           = { "gui": "#1c1c1c", "cterm": "234" }
+let s:actual_black    = { "gui": "#000000", "cterm": "232" }
+let s:medium_gray     = { "gui": "#767676", "cterm": "243" }
+let s:white           = { "gui": "#F1F1F1", "cterm": "15"  }
+let s:actual_white    = { "gui": "#FFFFFF", "cterm": "231" }
+let s:subtle_black    = { "gui": "#303030", "cterm": "236" }
+let s:light_black     = { "gui": "#262626", "cterm": "235" }
+let s:lighter_black   = { "gui": "#4E4E4E", "cterm": "239" }
+let s:light_gray      = { "gui": "#A8A8A8", "cterm": "248" }
+let s:lighter_gray    = { "gui": "#C6C6C6", "cterm": "251" }
+let s:lightest_gray   = { "gui": "#EEEEEE", "cterm": "255" }
+let s:pink            = { "gui": "#fb007a", "cterm": "9"   }
+let s:dark_red        = { "gui": "#C30771", "cterm": "1"   }
+let s:light_red       = { "gui": "#E32791", "cterm": "1"   }
+let s:orange          = { "gui": "#D75F5F", "cterm": "167" }
+let s:darker_blue     = { "gui": "#005F87", "cterm": "18"  }
+let s:dark_blue       = { "gui": "#008EC4", "cterm": "32"   }
+let s:blue            = { "gui": "#20BBFC", "cterm": "12"  }
+let s:light_blue      = { "gui": "#b6d6fd", "cterm": "153" }
+let s:dark_cyan       = { "gui": "#20A5BA", "cterm": "6"   }
+let s:light_cyan      = { "gui": "#4FB8CC", "cterm": "14"  }
+let s:dark_green      = { "gui": "#10A778", "cterm": "2"   }
+let s:light_green     = { "gui": "#5FD7A7", "cterm": "10"  }
+let s:dark_purple     = { "gui": "#af5fd7", "cterm": "134" }
+let s:light_purple    = { "gui": "#a790d5", "cterm": "140" }
+let s:yellow          = { "gui": "#F3E430", "cterm": "11"  }
+let s:light_yellow    = { "gui": "#ffff87", "cterm": "228"   }
+let s:dark_yellow     = { "gui": "#A89C14", "cterm": "3"   }
 
-" --------------------------------
-" Editor settings
-" --------------------------------
-hi Normal          ctermfg=none    ctermbg=none    cterm=none
-hi Cursor          ctermfg=none    ctermbg=none    cterm=none
-hi CursorLine      ctermfg=none    ctermbg=none    cterm=none
-hi LineNr          ctermfg=none    ctermbg=none    cterm=none
-hi CursorLineNR    ctermfg=none    ctermbg=none    cterm=none
+let s:bg              = s:black
+let s:bg_subtle       = s:lighter_black
+let s:bg_very_subtle  = s:subtle_black
+let s:norm            = s:lighter_gray
+let s:norm_subtle     = s:medium_gray
+let s:purple          = s:light_purple
+let s:cyan            = s:light_cyan
+let s:green           = s:light_green
+let s:red             = s:light_red
+let s:visual          = s:light_purple
+let s:yellow          = s:light_yellow
 
-" -----------------
-" - Number column -
-" -----------------
-hi CursorColumn    ctermfg=none    ctermbg=none    cterm=none
-hi FoldColumn      ctermfg=none    ctermbg=none    cterm=none
-hi SignColumn      ctermfg=none    ctermbg=none    cterm=none
-hi Folded          ctermfg=none    ctermbg=none    cterm=none
+" https://github.com/noahfrederick/vim-hemisu/
+function! s:h(group, style)
+  execute "highlight" a:group
+    \ "guifg="   (has_key(a:style, "fg")    ? a:style.fg.gui   : "NONE")
+    \ "guibg="   (has_key(a:style, "bg")    ? a:style.bg.gui   : "NONE")
+    \ "guisp="   (has_key(a:style, "sp")    ? a:style.sp.gui   : "NONE")
+    \ "gui="     (has_key(a:style, "gui")   ? a:style.gui      : "NONE")
+    \ "ctermfg=" (has_key(a:style, "fg")    ? a:style.fg.cterm : "NONE")
+    \ "ctermbg=" (has_key(a:style, "bg")    ? a:style.bg.cterm : "NONE")
+    \ "cterm="   (has_key(a:style, "cterm") ? a:style.cterm    : "NONE")
+endfunction
 
-" -------------------------
-" - Window/Tab delimiters -
-" -------------------------
-hi VertSplit       ctermfg=none    ctermbg=none    cterm=none
-hi ColorColumn     ctermfg=none    ctermbg=none    cterm=none
-hi TabLine         ctermfg=none    ctermbg=none    cterm=none
-hi TabLineFill     ctermfg=none    ctermbg=none    cterm=none
-hi TabLineSel      ctermfg=none    ctermbg=none    cterm=none
+call s:h("Normal",        {"bg": s:bg, "fg": s:norm})
 
-" -------------------------------
-" - File Navigation / Searching -
-" -------------------------------
-hi Directory       ctermfg=none    ctermbg=none    cterm=none
-hi Search          ctermfg=none    ctermbg=none    cterm=none
-hi IncSearch       ctermfg=none    ctermbg=none    cterm=none
+call s:h("Cursor",        {"bg": s:blue, "fg": s:norm })
+call s:h("Comment",       {"fg": s:bg_subtle})
 
-" -----------------
-" - Prompt/Status -
-" -----------------
-hi StatusLine      ctermfg=none    ctermbg=none    cterm=none
-hi StatusLineNC    ctermfg=none    ctermbg=none    cterm=none
-hi WildMenu        ctermfg=none    ctermbg=none    cterm=none
-hi Question        ctermfg=none    ctermbg=none    cterm=none
-hi Title           ctermfg=none    ctermbg=none    cterm=none
-hi ModeMsg         ctermfg=none    ctermbg=none    cterm=none
-hi MoreMsg         ctermfg=none    ctermbg=none    cterm=none
+call s:h("Constant",      {"fg": s:blue})
+hi! link Character        Constant
+hi! link Number           Constant
+hi! link Boolean          Constant
+hi! link Float            Constant
+hi! link String           Constant
 
-" --------------
-" - Visual aid -
-" --------------
-hi MatchParen      ctermfg=none    ctermbg=none    cterm=none
-hi Visual          ctermfg=none    ctermbg=none    cterm=none
-hi VisualNOS       ctermfg=none    ctermbg=none    cterm=none
-hi NonText         ctermfg=none    ctermbg=none    cterm=none
+call s:h("Identifier",    {"fg": s:norm})
+hi! link Identifier       Normal
+hi! link Function         Identifier
 
-hi Todo            ctermfg=none    ctermbg=none    cterm=none
-hi Underlined      ctermfg=none    ctermbg=none    cterm=none
-hi Error           ctermfg=none    ctermbg=none    cterm=none
-hi ErrorMsg        ctermfg=none    ctermbg=none    cterm=none
-hi WarningMsg      ctermfg=none    ctermbg=none    cterm=none
-hi Ignore          ctermfg=none    ctermbg=none    cterm=none
-hi SpecialKey      ctermfg=none    ctermbg=none    cterm=none
+call s:h("Statement",     {"fg": s:norm_subtle, "cterm": "bold"})
+hi! link Conditonal       Statement
+hi! link Repeat           Statement
+hi! link Label            Statement
+hi! link Keyword          Statement
+hi! link Exception        Statement
 
-" --------------------------------
-" Variable types
-" --------------------------------
-hi Constant        ctermfg=none    ctermbg=none    cterm=none
-hi String          ctermfg=none    ctermbg=none    cterm=none
-hi StringDelimiter ctermfg=none    ctermbg=none    cterm=none
-hi Character       ctermfg=none    ctermbg=none    cterm=none
-hi Number          ctermfg=none    ctermbg=none    cterm=none
-hi Boolean         ctermfg=none    ctermbg=none    cterm=none
-hi Float           ctermfg=none    ctermbg=none    cterm=none
+call s:h("Operator",      {"fg": s:norm, "cterm": "bold"})
 
-hi Identifier      ctermfg=none    ctermbg=none    cterm=none
-hi Function        ctermfg=none    ctermbg=none    cterm=none
+call s:h("PreProc",     {"fg": s:norm_subtle})
+hi! link Include          PreProc
+hi! link Define           PreProc
+hi! link Macro            PreProc
+hi! link PreCondit        PreProc
 
-" --------------------------------
-" Language constructs
-" --------------------------------
-hi Statement       ctermfg=none    ctermbg=none    cterm=none
-hi Conditional     ctermfg=none    ctermbg=none    cterm=none
-hi Repeat          ctermfg=none    ctermbg=none    cterm=none
-hi Label           ctermfg=none    ctermbg=none    cterm=none
-hi Operator        ctermfg=none    ctermbg=none    cterm=none
-hi Keyword         ctermfg=none    ctermbg=none    cterm=none
-hi Exception       ctermfg=none    ctermbg=none    cterm=none
-hi Comment         ctermfg=none    ctermbg=none    cterm=none
+call s:h("Type",          {"fg": s:norm_subtle, "cterm": "bold"})
+hi! link StorageClass     Type
+hi! link Structure        Type
+hi! link Typedef          Type
 
-hi Special         ctermfg=none    ctermbg=none    cterm=none
-hi SpecialChar     ctermfg=none    ctermbg=none    cterm=none
-hi Tag             ctermfg=none    ctermbg=none    cterm=none
-hi Delimiter       ctermfg=none    ctermbg=none    cterm=none
-hi SpecialComment  ctermfg=none    ctermbg=none    cterm=none
-hi Debug           ctermfg=none    ctermbg=none    cterm=none
+call s:h("Special",       {"fg": s:norm_subtle, "cterm": "bold"})
+hi! link SpecialChar      Special
+hi! link Tag              Special
+hi! link Delimiter        Special
+hi! link SpecialComment   Special
+hi! link Debug            Special
 
-" ----------
-" - C like -
-" ----------
-hi PreProc         ctermfg=none    ctermbg=none    cterm=none
-hi Include         ctermfg=none    ctermbg=none    cterm=none
-hi Define          ctermfg=none    ctermbg=none    cterm=none
-hi Macro           ctermfg=none    ctermbg=none    cterm=none
-hi PreCondit       ctermfg=none    ctermbg=none    cterm=none
+call s:h("Underlined",    {"fg": s:norm, "cterm": "underline"})
+call s:h("Ignore",        {"fg": s:bg})
+call s:h("Error",         {"fg": s:actual_white, "bg": s:red, "cterm": "bold"})
+call s:h("Todo",          {"fg": s:blue,"cterm": "underline"})
+call s:h("SpecialKey",    {"fg": s:light_green})
+call s:h("NonText",       {"fg": s:medium_gray})
+call s:h("Directory",     {"fg": s:dark_blue})
+call s:h("ErrorMsg",      {"fg": s:red})
+call s:h("IncSearch",     {"bg": s:yellow, "fg": s:light_black})
+call s:h("Search",        {"bg": s:light_green, "fg": s:light_black})
+call s:h("MoreMsg",       {"fg": s:medium_gray, "cterm": "bold"})
+hi! link ModeMsg MoreMsg
+call s:h("LineNr",        {"fg": s:bg_subtle})
+call s:h("CursorLineNr",  {"fg": s:blue, "bg": s:bg_very_subtle})
+call s:h("Question",      {"fg": s:red})
+call s:h("StatusLine",    {"bg": s:bg})
+call s:h("StatusLineNC",  {"bg": s:bg, "fg": s:medium_gray})
+call s:h("VertSplit",     {"bg": s:bg_very_subtle, "fg": s:bg_very_subtle})
+call s:h("Title",         {"fg": s:dark_blue})
+call s:h("Visual",        {"fg": s:norm, "bg": s:blue})
+call s:h("VisualNOS",     {"bg": s:bg_subtle})
+call s:h("WarningMsg",    {"fg": s:yellow})
+call s:h("WildMenu",      {"fg": s:bg, "bg": s:norm})
+call s:h("Folded",        {"fg": s:medium_gray})
+call s:h("FoldColumn",    {"fg": s:bg_subtle})
+call s:h("DiffAdd",       {"fg": s:green})
+call s:h("DiffDelete",    {"fg": s:red})
+call s:h("DiffChange",    {"fg": s:dark_yellow})
+call s:h("DiffText",      {"fg": s:dark_blue})
+call s:h("SignColumn",    {"fg": s:light_green})
 
-hi Type            ctermfg=none    ctermbg=none    cterm=none
-hi StorageClass    ctermfg=none    ctermbg=none    cterm=none
-hi Structure       ctermfg=none    ctermbg=none    cterm=none
-hi Typedef         ctermfg=none    ctermbg=none    cterm=none
 
-" --------------------------------
-" Diff
-" --------------------------------
-hi DiffAdd         ctermfg=none    ctermbg=none    cterm=none
-hi DiffChange      ctermfg=none    ctermbg=none    cterm=none
-hi DiffDelete      ctermfg=none    ctermbg=none    cterm=none
-hi DiffText        ctermfg=none    ctermbg=none    cterm=none
+call s:h("SpellBad",    {"cterm": "underline", "fg": s:red})
+call s:h("SpellCap",    {"cterm": "underline", "fg": s:light_green})
+call s:h("SpellRare",   {"cterm": "underline", "fg": s:pink})
+call s:h("SpellLocal",  {"cterm": "underline", "fg": s:dark_green})
 
-" --------------------------------
-" Completion menu
-" --------------------------------
-hi Pmenu           ctermfg=none    ctermbg=none    cterm=none
-hi PmenuSel        ctermfg=none    ctermbg=none    cterm=none
-hi PmenuSbar       ctermfg=none    ctermbg=none    cterm=none
-hi PmenuThumb      ctermfg=none    ctermbg=none    cterm=none
+call s:h("Pmenu",         {"fg": s:norm, "bg": s:bg_subtle})
+call s:h("PmenuSel",      {"fg": s:norm, "bg": s:blue})
+call s:h("PmenuSbar",     {"fg": s:norm, "bg": s:bg_subtle})
+call s:h("PmenuThumb",    {"fg": s:norm, "bg": s:bg_subtle})
+call s:h("TabLine",       {"fg": s:norm, "bg": s:bg_very_subtle})
+call s:h("TabLineSel",    {"fg": s:blue, "bg": s:bg_subtle, "cterm": "bold"})
+call s:h("TabLineFill",   {"fg": s:norm, "bg": s:bg_very_subtle})
+call s:h("CursorColumn",  {"bg": s:bg_very_subtle})
+call s:h("CursorLine",    {"bg": s:bg_very_subtle})
+call s:h("ColorColumn",   {"bg": s:bg_subtle})
 
-" --------------------------------
-" Spelling
-" --------------------------------
-hi SpellBad        ctermfg=none    ctermbg=none    cterm=none
-hi SpellCap        ctermfg=none    ctermbg=none    cterm=none
-hi SpellLocal      ctermfg=none    ctermbg=none    cterm=none
-hi SpellRare       ctermfg=none    ctermbg=none    cterm=none
+call s:h("MatchParen",    {"bg": s:bg_subtle, "fg": s:norm})
+call s:h("qfLineNr",      {"fg": s:medium_gray})
 
-"--------------------------------------------------------------------
-" Specific settings                                                 |
-"--------------------------------------------------------------------
+
+
+call s:h("SuperSpecial",       {"fg": s:red})
+hi! link jsReturn            SuperSpecial

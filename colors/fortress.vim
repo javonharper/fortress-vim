@@ -166,8 +166,3 @@ call s:h("ColorColumn",   {"bg": s:bg_subtle})
 
 call s:h("MatchParen",    {"bg": s:bg_subtle, "fg": s:norm})
 call s:h("qfLineNr",      {"fg": s:medium_gray})
-
-
-
-call s:h("SuperSpecial",       {"fg": s:red})
-hi! link jsReturn            SuperSpecial

@@ -1,6 +1,6 @@
 # fortress-vim
 
-### A minimal colorscheme for vim
+### A minimal colorscheme for vim.
 
 ## Screenshot
 

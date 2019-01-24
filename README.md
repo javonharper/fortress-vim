@@ -22,4 +22,4 @@ colorscheme fortress
 
 ## Credits
 
-Based heavily on the off, plain, and paramount colorschemes.
+Based heavily on the [off](https://github.com/pbrisbin/vim-colors-off), [plain](https://github.com/andreypopp/vim-colors-plain), and [paramount](https://github.com/owickstrom/vim-colors-paramount) colorschemes.
